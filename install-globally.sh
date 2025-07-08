@@ -2,19 +2,31 @@
 
 # Claude Subagents Global Installation Script
 # This script makes the subagent commands globally available for Claude code terminal
+# Now includes comprehensive logging system
 
 set -e
 
-echo "🚀 Installing Claude Subagents Globally..."
+echo "🚀 Installing Claude Subagents Globally with Logging..."
 
 # Create global commands directory
 COMMANDS_DIR="$HOME/.claude/commands"
+LOG_DIR="$HOME/.claude/logs"
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Create the directory if it doesn't exist
+# Create the directories if they don't exist
 mkdir -p "$COMMANDS_DIR"
+mkdir -p "$LOG_DIR"
+
+# Install logging system
+echo "📊 Installing logging system..."
+cp "$SCRIPT_DIR/logging-system.sh" "$COMMANDS_DIR/logging-system.sh"
+cp "$SCRIPT_DIR/command-wrapper.sh" "$COMMANDS_DIR/command-wrapper.sh"
+cp "$SCRIPT_DIR/log-viewer.sh" "$COMMANDS_DIR/log-viewer.sh"
+chmod +x "$COMMANDS_DIR/logging-system.sh"
+chmod +x "$COMMANDS_DIR/command-wrapper.sh"
+chmod +x "$COMMANDS_DIR/log-viewer.sh"
 
 # Copy all subagent files to the global commands directory with proper command names
 echo "📁 Copying subagent files to $COMMANDS_DIR..."
@@ -45,6 +57,13 @@ cp "$SCRIPT_DIR/sub-agent-new-feature.md" "$COMMANDS_DIR/sanf.md"
 
 echo "✅ Subagent commands installed successfully!"
 
+# Initialize logging system
+echo "🔧 Initializing logging system..."
+"$COMMANDS_DIR/logging-system.sh"
+
+# Create initial log entry
+echo "$(date '+%Y-%m-%d %H:%M:%S') [INFO] [INSTALLER] Claude Subagents installed successfully" >> "$LOG_DIR/subagent-commands.log"
+
 # List the available commands
 echo ""
 echo "📋 Available Subagent Commands:"
@@ -56,6 +75,15 @@ echo "4. /performance-optimizer   (aliases: /perf-optimize, /sapo)"
 echo "5. /migration-assistant     (aliases: /migrate, /sama)"
 echo "6. /refactor                (aliases: /sar)"
 echo "7. /new-feature             (aliases: /sanf)"
+echo ""
+echo "📊 Logging Commands:"
+echo "===================="
+echo "- View recent logs: ~/.claude/commands/log-viewer.sh --recent [count]"
+echo "- Show statistics: ~/.claude/commands/log-viewer.sh --stats"
+echo "- View errors only: ~/.claude/commands/log-viewer.sh --errors"
+echo "- Follow live logs: ~/.claude/commands/log-viewer.sh --follow"
+echo "- Clean old logs: ~/.claude/commands/log-viewer.sh --clean [days]"
+echo "- Full log viewer help: ~/.claude/commands/log-viewer.sh --help"
 echo ""
 
 echo "🎯 Usage Examples:"
