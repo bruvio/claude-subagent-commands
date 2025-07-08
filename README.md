@@ -6,7 +6,7 @@ A comprehensive collection of powerful sub-agent orchestration commands for Clau
 
 ```bash
 # Clone and install globally
-git clone https://github.com/Dreamrealai/claude-subagent-commands.git
+git clone https://github.com/bruvio/claude-subagent-commands.git
 cd claude-subagent-commands
 chmod +x install-globally.sh
 ./install-globally.sh
@@ -262,6 +262,3 @@ These examples demonstrate patterns for creating your own multi-agent commands. 
 
 This collection is provided as reference implementations for Claude sub-agent orchestration patterns.
 
----
-
-*Generated with Claude Sub-Agent commands for maximum productivity and code quality.*
