@@ -19,6 +19,22 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 mkdir -p "$COMMANDS_DIR"
 mkdir -p "$LOG_DIR"
 
+# Clean up old command files
+echo "🧹 Cleaning up old command files..."
+rm -f "$COMMANDS_DIR/saar.md" \
+      "$COMMANDS_DIR/sama.md" \
+      "$COMMANDS_DIR/sanf.md" \
+      "$COMMANDS_DIR/sapo.md" \
+      "$COMMANDS_DIR/sar.md" \
+      "$COMMANDS_DIR/satdff.md" \
+      "$COMMANDS_DIR/satg.md" \
+      "$COMMANDS_DIR/arch-review.md" \
+      "$COMMANDS_DIR/migrate.md" \
+      "$COMMANDS_DIR/perf-optimize.md" \
+      "$COMMANDS_DIR/td-finder-fixer.md" \
+      "$COMMANDS_DIR/test-gen.md" \
+      "$COMMANDS_DIR/sub-agent-"*.md
+
 # Install logging system
 echo "📊 Installing logging system..."
 cp "$SCRIPT_DIR/logging-system.sh" "$COMMANDS_DIR/logging-system.sh"
@@ -39,21 +55,15 @@ cp "$SCRIPT_DIR/sub-agent-migration-assistant.md" "$COMMANDS_DIR/migration-assis
 cp "$SCRIPT_DIR/sub-agent-refactor.md" "$COMMANDS_DIR/refactor.md"
 cp "$SCRIPT_DIR/sub-agent-new-feature.md" "$COMMANDS_DIR/new-feature.md"
 
-# Create aliases for shorter commands
-cp "$SCRIPT_DIR/sub-agent-tech-debt-finder-fixer.md" "$COMMANDS_DIR/td-finder-fixer.md"
-cp "$SCRIPT_DIR/sub-agent-architecture-reviewer.md" "$COMMANDS_DIR/arch-review.md"
-cp "$SCRIPT_DIR/sub-agent-test-generator.md" "$COMMANDS_DIR/test-gen.md"
-cp "$SCRIPT_DIR/sub-agent-performance-optimizer.md" "$COMMANDS_DIR/perf-optimize.md"
-cp "$SCRIPT_DIR/sub-agent-migration-assistant.md" "$COMMANDS_DIR/migrate.md"
+# Copy CLAUDE.md template and new PRP commands
+echo "📁 Copying CLAUDE settings and PRP commands..."
+cp "$SCRIPT_DIR/CLAUDE.md" "$COMMANDS_DIR/CLAUDE.md"
+cp "$SCRIPT_DIR/install-claude-settings.md" "$COMMANDS_DIR/install-claude-settings.md"
+cp "$SCRIPT_DIR/execute-prp-command.md" "$COMMANDS_DIR/execute-prp.md"
+cp "$SCRIPT_DIR/generate-prp-command.md" "$COMMANDS_DIR/generate-prp.md"
 
-# Create shortest aliases
-cp "$SCRIPT_DIR/sub-agent-tech-debt-finder-fixer.md" "$COMMANDS_DIR/satdff.md"
-cp "$SCRIPT_DIR/sub-agent-architecture-reviewer.md" "$COMMANDS_DIR/saar.md"
-cp "$SCRIPT_DIR/sub-agent-test-generator.md" "$COMMANDS_DIR/satg.md"
-cp "$SCRIPT_DIR/sub-agent-performance-optimizer.md" "$COMMANDS_DIR/sapo.md"
-cp "$SCRIPT_DIR/sub-agent-migration-assistant.md" "$COMMANDS_DIR/sama.md"
-cp "$SCRIPT_DIR/sub-agent-refactor.md" "$COMMANDS_DIR/sar.md"
-cp "$SCRIPT_DIR/sub-agent-new-feature.md" "$COMMANDS_DIR/sanf.md"
+
+
 
 echo "✅ Subagent commands installed successfully!"
 
@@ -68,13 +78,17 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') [INFO] [INSTALLER] Claude Subagents installed
 echo ""
 echo "📋 Available Subagent Commands:"
 echo "================================"
-echo "1. /tech-debt-finder-fixer  (aliases: /td-finder-fixer, /satdff)"
-echo "2. /architecture-review     (aliases: /arch-review, /saar)"
-echo "3. /test-generator          (aliases: /test-gen, /satg)"
-echo "4. /performance-optimizer   (aliases: /perf-optimize, /sapo)"
-echo "5. /migration-assistant     (aliases: /migrate, /sama)"
-echo "6. /refactor                (aliases: /sar)"
-echo "7. /new-feature             (aliases: /sanf)"
+echo "1. /refactor                - Intelligent code refactoring"
+echo "2. /new-feature             - Build new features with AI"
+echo ""
+echo "📋 Project Setup Commands:"
+echo "============================"
+echo "8. /install-claude-settings - Install CLAUDE.md in new repositories"
+echo ""
+echo "📋 PRP (Product Requirements & Planning) Commands:"
+echo "=================================================="
+echo "9. /generate-prp            - Generate comprehensive PRP documents"
+echo "10. /execute-prp             - Execute PRP documents to implement features"
 echo ""
 echo "📊 Logging Commands:"
 echo "===================="
@@ -88,26 +102,21 @@ echo ""
 
 echo "🎯 Usage Examples:"
 echo "=================="
-echo "# Find and fix technical debt"
-echo "/tech-debt-finder-fixer src/"
-echo ""
-echo "# Review architecture"
-echo "/arch-review --detect-violations"
-echo ""
-echo "# Generate tests for untested code"
-echo "/test-gen --only-untested"
-echo ""
-echo "# Optimize performance"
-echo "/perf-optimize --bundle-analysis"
-echo ""
-echo "# Migrate frameworks"
-echo "/migrate --from react@17 --to react@18"
-echo ""
 echo "# Refactor code intelligently"
 echo "/refactor src/components/ --type extract-component"
 echo ""
 echo "# Build new features with AI"
 echo "/new-feature --feature \"user dashboard\" --location src/pages/"
+echo ""
+echo "# Install CLAUDE.md in new project"
+echo "/install-claude-settings"
+echo "/install-claude-settings /path/to/new/project"
+echo ""
+echo "# Generate PRP for feature planning"
+echo "/generate-prp features/user-authentication.md"
+echo ""
+echo "# Execute PRP to implement feature"
+echo "/execute-prp PRPs/user-authentication.md"
 echo ""
 
 echo "🔧 Setup Complete!"

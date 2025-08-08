@@ -1,18 +1,15 @@
-# Claude Subagent Commands Collection
+# Claude Subagent Commands
 
-A comprehensive collection of powerful sub-agent orchestration commands for Claude that demonstrate how to coordinate multiple specialized AI agents to tackle complex software engineering tasks.
+Multi-agent orchestration commands for complex software engineering tasks.
 
-## 🚀 Quick Installation
-
+## Installation
 ```bash
-# Clone and install globally
 git clone https://github.com/bruvio/claude-subagent-commands.git
 cd claude-subagent-commands
-chmod +x install-globally.sh
 ./install-globally.sh
 ```
 
-## 📋 Available Commands
+## Commands
 
 ### 1. Tech Debt Finder & Fixer
 **Aliases:** `@tech-debt-finder-fixer`, `@td-finder-fixer`, `@satdff`
