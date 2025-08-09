@@ -4,9 +4,22 @@ Generate a comprehensive Product Requirements and Planning (PRP) document for fe
 
 ## Command: generate-prp
 
-## Arguments: [feature_description_file]
+## Arguments: [feature_description_file] [options]
+
+Options:
+- `--prp-dir [directory]` - Override PRP storage directory
+- `--research-dir [directory]` - Override research storage directory
+- `--base-dir [directory]` - Override base directory for both PRP and research
 
 ## Process
+
+0. **Directory Configuration**
+   - Load PRP storage configuration from `$HOME/.claude/config/prp-storage.conf`
+   - Apply command-line directory overrides if provided
+   - Fall back to environment variables if available
+   - Use current working directory as final fallback
+   - Create configured directories if they don't exist
+   - Validate directory permissions for read/write access
 
 1. **Feature Analysis**
    - Read and understand the feature description file
@@ -19,7 +32,7 @@ Generate a comprehensive Product Requirements and Planning (PRP) document for fe
    - Search for similar features and patterns
    - Research external documentation (30-100 pages minimum)
    - Study official documentation pages only
-   - Create detailed research files in /research/ directory
+   - Create detailed research files in configured research directory
    - Document all findings with references
 
 3. **Codebase Pattern Analysis**
@@ -44,12 +57,12 @@ Generate a comprehensive Product Requirements and Planning (PRP) document for fe
    - Create detailed implementation blueprint
 
 6. **PRP Generation**
-   - Use PRPs/templates/prp_base.md as template
+   - Use configured PRP directory with templates/prp_base.md as template
    - Include all critical context and documentation URLs
    - Provide comprehensive code examples
    - Define executable validation gates
    - Create step-by-step implementation tasks
-   - Include references to research files
+   - Include references to research files in configured research directory
 
 7. **Quality Assurance**
    - Validate PRP completeness (1-10 confidence score)
@@ -61,13 +74,16 @@ Generate a comprehensive Product Requirements and Planning (PRP) document for fe
 ## Usage Examples
 
 ```bash
-# Generate PRP from feature file
+# Generate PRP from feature file (uses configured directories)
 /generate-prp features/user-dashboard.md
 
-# Generate PRP from requirements
-/generate-prp requirements/api-integration.txt
+# Generate PRP with custom base directory
+/generate-prp features/user-dashboard.md --base-dir ~/my-prp-workspace
 
-# Generate PRP from specification
+# Generate PRP with custom PRP and research directories
+/generate-prp requirements/api-integration.txt --prp-dir ~/Documents/PRPs --research-dir ~/Documents/research
+
+# Generate PRP from specification (uses configured directories)
 /generate-prp specs/authentication-system.md
 ```
 
@@ -78,11 +94,11 @@ Generate a comprehensive Product Requirements and Planning (PRP) document for fe
 - **Comprehensive code examples** in research files
 - **Working production-ready examples** documented
 - **Version-specific model names** researched and documented
-- **All research saved** in organized /research/ directory structure
+- **All research saved** in organized configured research directory structure
 
 ## Output Structure
 
-- **Save as**: `PRPs/{project-name}.md`
+- **Save as**: `{configured-prp-dir}/{project-name}.md`
 - **Include**: All necessary context for AI agent implementation
 - **Provide**: Executable validation commands
 - **Reference**: Existing codebase patterns
@@ -101,7 +117,7 @@ The generated PRP must enable one-pass implementation success through:
 ## Research Directory Structure
 
 ```
-/research/
+{configured-research-dir}/
 ├── {technology-name}/
 │   ├── official-docs-page1.md
 │   ├── official-docs-page2.md
@@ -111,3 +127,13 @@ The generated PRP must enable one-pass implementation success through:
     ├── api-documentation.md
     └── implementation-examples.md
 ```
+
+## Directory Configuration
+
+The system automatically loads directory configuration in this priority order:
+1. Command-line arguments (`--prp-dir`, `--research-dir`, `--base-dir`)
+2. Environment variables (`CLAUDE_PRP_DIR`, `CLAUDE_RESEARCH_DIR`, `CLAUDE_PRP_BASE_DIR`)
+3. Configuration file (`$HOME/.claude/config/prp-storage.conf`)
+4. Default fallback (current working directory: `./PRPs`, `./research`)
+
+Use `/config-prp-storage` command to set up persistent directory configuration.
