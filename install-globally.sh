@@ -75,6 +75,13 @@ cp "$SCRIPT_DIR/generate-prp-command.md" "$COMMANDS_DIR/generate-prp.md"
 cp "$SCRIPT_DIR/config-prp-storage.md" "$COMMANDS_DIR/config-prp-storage.md"
 cp "$SCRIPT_DIR/prp_base_template.md" "$COMMANDS_DIR/prp_base_template.md"
 
+# Install auto-install hooks
+echo "🔗 Installing Claude auto-install hooks..."
+cp "$SCRIPT_DIR/auto-install-claude.sh" "$COMMANDS_DIR/auto-install-claude.sh"
+chmod +x "$COMMANDS_DIR/auto-install-claude.sh"
+cp "$SCRIPT_DIR/setup-claude-hooks.sh" "$COMMANDS_DIR/setup-claude-hooks.sh"
+chmod +x "$COMMANDS_DIR/setup-claude-hooks.sh"
+
 
 
 
@@ -91,6 +98,10 @@ if [ ! -f "$CONFIG_DIR/prp-storage.conf" ]; then
     "$COMMANDS_DIR/prp-config-loader.sh" save "$DEFAULT_PRP_DIR" "$DEFAULT_RESEARCH_DIR"
 fi
 
+# Setup Claude auto-install hooks
+echo "🔗 Setting up Claude auto-install hooks..."
+"$COMMANDS_DIR/setup-claude-hooks.sh"
+
 # Create initial log entry
 echo "$(date '+%Y-%m-%d %H:%M:%S') [INFO] [INSTALLER] Claude Subagents installed successfully" >> "$LOG_DIR/subagent-commands.log"
 
@@ -103,7 +114,8 @@ echo "2. /new-feature             - Build new features with AI"
 echo ""
 echo "📋 Project Setup Commands:"
 echo "============================"
-echo "8. /install-claude-settings - Install CLAUDE.md in new repositories"
+echo "8. /install-claude-settings - Manual install CLAUDE.md in new repositories"
+echo "   Note: CLAUDE.md now auto-installs when you start Claude in any repo!"
 echo ""
 echo "📋 PRP (Product Requirements & Planning) Commands:"
 echo "=================================================="
