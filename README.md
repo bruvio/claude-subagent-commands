@@ -17,6 +17,7 @@
   - [Multi-Agent Commands](#multi-agent-commands)
   - [Logging & Monitoring System](#logging--monitoring-system)
   - [PRP Planning System](#prp-product-requirements--planning-system)
+  - [Code Review & Analysis Commands](#code-review--analysis-commands)
   - [Configuration Management](#configuration-management)
 - [🏗️ System Architecture](#️-system-architecture)
 - [📚 Command Reference](#-command-reference)
@@ -418,6 +419,84 @@ Manage PRP and research directories:
 # - Runs tests and validation
 # - Provides completion report
 ```
+
+### Code Review & Analysis Commands
+
+#### Merge Review (`/merge_review`)
+
+Generate comprehensive documentation comparing changes between branches with deep architectural analysis.
+
+**Command Syntax**:
+```bash
+/merge_review <branch-name>
+```
+
+**Examples**:
+```bash
+# Compare current branch with beta
+/merge_review beta
+
+# Compare current branch with main
+/merge_review main
+
+# Compare with feature branch
+/merge_review feature/auth-system
+```
+
+**What It Does**:
+The merge_review command performs multi-agent analysis of code changes between your current branch and a target branch, generating a comprehensive markdown report that includes:
+
+1. **Complete Diff Analysis** - All code additions, deletions, and modifications
+2. **Change Rationale** - Reasoning and justification for each significant change
+3. **Documentation References** - Links to official documentation explaining patterns and approaches used
+4. **Mermaid Diagrams** - Visual representations of:
+   - Architecture changes (before/after)
+   - Component relationships
+   - Data flow modifications
+   - Logic flow changes
+   - Refactoring patterns
+5. **Impact Assessment** - Risk analysis, breaking changes, testing requirements
+6. **Architectural Analysis** - Component changes, design pattern implementations
+7. **Performance & Security** - Performance implications and security considerations
+8. **Migration Guide** - Steps for developers and operations teams
+
+**Output Location**:
+All merge review reports are automatically saved to:
+```
+/Users/brunoviola/Documents/LaTeX/LaTeXLogBook/Projects/Genomics/documents/markdown/
+```
+
+Filename format: `merge-review-{current-branch}-vs-{target-branch}-{timestamp}.md`
+
+**Report Sections**:
+- Executive Summary with key changes and impact assessment
+- Detailed change analysis (new/modified/deleted files)
+- Architectural changes with visual diagrams
+- Logic flow modifications
+- Refactoring patterns applied
+- Data flow changes
+- Dependency analysis (new/updated/removed)
+- Configuration changes
+- Testing implications
+- Performance and security considerations
+- Documentation references with official sources
+- Migration guide
+- Complete commit history
+
+**Use Cases**:
+- **Pre-merge Review** - Understand all changes before merging
+- **Team Communication** - Share comprehensive change documentation
+- **Knowledge Transfer** - Document complex refactorings
+- **Audit Trail** - Create detailed records of significant changes
+- **Architecture Review** - Assess architectural impact of changes
+
+**Multi-Agent Analysis**:
+The command uses 5 specialized agents:
+1. Diff Analyzer - Categorizes and metrics changes
+2. Architectural Impact Analyzer - Identifies pattern and structure changes
+3. Logic Flow Analyzer - Tracks algorithm and control flow modifications
+4. Documentation Context Researcher - Gathers official documentation references
+5. Comprehensive Report Generator - Synthesizes all analysis into markdown
 
 ### Configuration Management
 
@@ -907,4 +986,5 @@ This collection is provided as reference implementations for Claude sub-agent or
 - **Storage Efficiency**: Configurable log retention with automated cleanup
 
 ---
+
 
